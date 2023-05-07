@@ -74,6 +74,11 @@ env = gym.make('MELD-v0',
                predefined_feat=True)
 ```
 ## Step
+Taking a ndarray in shape of used emotion embedding as input (e.g. if taking ```'w2v'``` as emotion embedding, then ```step()``` should take a (300, ) ndarray as input).
+```python
+action = np.random.random(300)
+_, _, _, _, _, _ = env.step(action = action)   # seeing return following
+```
 Return a six-element-tuple of following contents: 
 
     Return: 
