@@ -1,0 +1,6 @@
+gym
+gensim
+scipy
+sklearn
+pandas=2.0.1
+nummpy==1.19.0
