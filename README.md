@@ -125,3 +125,27 @@ Dictionaries of data. Keys are dia_utt index pair. e.g. to call the label of 0-t
             )
 - **self.action_space**:
     ```gym.spaces.Discrete``` with size of shape of emotion embedding sapce (300, 50 or 3)
+
+# Toy Case
+```python
+import gym
+import MELD
+import numpy as np
+
+env_test = gym.make('MELD-v0',
+               dataset_path='path/to/MELD.Features.Models/features',
+               partition='dev',
+               label_emb='NRC_VAD',
+               predefined_feat=True)
+
+print(env_test.reset())
+# print(env_test.labels['66'])
+for _ in range(100):
+    state, flag, id_pair, emo, emo_emb, reward = env_test.step(np.random.random((1,3)))
+    # if flag == True:
+    #     print(state)
+    print(flag, id_pair)
+    if flag == True:
+        _, flag, id_pair, _, _, _ = env_test.reset()
+env_test.close()
+```
