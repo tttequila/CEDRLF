@@ -15,7 +15,7 @@
 ## Env
 This env is a simple case of converting [MELD](https://github.com/declare-lab/MELD/tree/master) dataset into reinforcement learning (RL) environment that can be interacted with. Additionally, emotion labels are converted into several emotional embedding spaces for continuous emotion labels.
 
-- **Actions**: Estimated emotion embedding of time $t$ (e.g. $g(\hat{e_t})$).
+- **Actions**: Estimated emotion embedding of time $t$ (e.g. $g(\hat{e_t})$ ).
 - **States**: Audio (features) and utterance (features) of $t+1$.
 - **Reward**: Sum of cosine distance between $g(\hat{e_t})$ and embedding of true label $g(e_t)$.
   
