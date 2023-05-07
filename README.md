@@ -81,14 +81,14 @@ _, _, _, _, _, _ = env.step(action = action)   # seeing return following
 ```
 Return a six-element-tuple of following contents: 
 
-    Return: 
+    **Return**: 
         (   
-            (utterance (feature) of next timestep, audio (feature) of next timestep),
-            flag to indicate whether current dialogue has been finished,
-            dialogue_utterance index pair,
-            text emotion label,
-            corresponding emotion embedding,
-            reward of current action
+            two-element-tuple: (utterance (feature) of next timestep, audio (feature) of next timestep),
+            bool: flag to indicate whether current dialogue has been finished,
+            str: dialogue_utterance index pair,
+            str: text emotion label,
+            np.ndarray: corresponding emotion embedding,
+            float: reward of current action
         )
 
 ❗ When dialogue flag *(second element)* is True, you should call reset method manually.
