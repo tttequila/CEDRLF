@@ -139,7 +139,7 @@ env_test = gym.make('MELD-v0',
                predefined_feat=True)
 
 print(env_test.reset())
-# print(env_test.labels['66'])
+
 for _ in range(100):
     state, flag, id_pair, emo, emo_emb, reward = env_test.step(np.random.random((1,3)))
     # if flag == True:
