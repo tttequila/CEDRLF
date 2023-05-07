@@ -1,4 +1,4 @@
-### Installment
+# Installment
 
 1. donwloading file folder 'custom-gym'
 2. entering path of 'custom-gym'
@@ -10,9 +10,9 @@
     pip install -e .
     ```
 
-### The environment
+# The environment
 
-#### Env
+## Env
 This env is a simple case of converting [MELD](https://github.com/declare-lab/MELD/tree/master) dataset into reinforcement learning (RL) environment that can be interacted with. Additionally, emotion labels are converted into several emotional embedding spaces for continuous emotion labels.
 
 - **Actions**: Estimated emotion embedding of time $t$ (e.g. $g(\hat{e_t})$).
@@ -26,7 +26,7 @@ Embdedding spaces are chosen from:
 
 ❗ Especially, w2v and glove don't have finite scale while NRC_VAD are scaled within [0,1] 
  
-#### Dataset
+## Dataset
 ![img](img/emotion_shift.jpeg)
 
 For details, please check the official document of [MELD](https://github.com/declare-lab/MELD/tree/master). This dataset contain several dialogue from TV series "Friends". And each dialogue contain several consecutive utterances (didn't group by characters) with emotion labels.
@@ -44,7 +44,7 @@ Here we utilized two types of dataset from MELD.
     For emotion recognition task(different from sentiment recognition task), features for each modality are in shape of:
         - Utterance modality: (300, ) each utterance extracted from the average of the Glove embeddings of all tokens per utterance.
         - Audio modality: (1611, ) each corresponding utterance. These features are originally extracted from [openSMILE](https://www.audeering.com/opensmile/) and then followed by L2-based feature selection using SVM.
-#### Data Preparation (only for raw data)
+## Data Preparation (only for raw data)
 Since the raw data doesn't  contain pure wav files, you need to run crop.py to extract audio files (.wav) from video files (.mp4):
 
 ```
@@ -54,8 +54,8 @@ where ```{$path/to/video_files}``` is the path directly toward file folder of sp
 
     dia0_utt0.mp4 --crop.py--> dia0_utt0.mp4, dia0_utt0.wav
   
-###  Uasge
-#### Initialziation
+#  Uasge
+## Initialziation
 There are five arguments that can be passed into ```gym.make()``` are used to control the environment. 
   - ```{$dataset_path}```: Path toward dataset. (e.g. for raw data, it should be ```'path/to/MELD.Raw'```, and for predefined feature, it should be ```'path/to/MELD.Features.Models/features'```).
   - ```{$partition}```: Used to indicate dataset partition. Should be within the list of ```['train', 'test', 'dev']```.
@@ -73,7 +73,7 @@ env = gym.make('MELD-v0',
                label_emb='NRC_VAD',
                predefined_feat=True)
 ```
-#### Step
+## Step
 Return a six-element-tuple of following contents: 
 
     Return: 
@@ -88,7 +88,7 @@ Return a six-element-tuple of following contents:
 
 ❗ When dialogue flag *(second element)* is True, you should call reset method manually.
 
-#### Reset
+## Reset
 Two arguments are optional:
 
   -  ```{$dia_id}```: Manually choose ```{$dia_id}```-th dialogue.
@@ -98,7 +98,7 @@ If not indicate explicitly, env will randomly choose a dialogue and start from t
 
 Return similiar structure of ```step()``` but with emotion label, emotion embedding and reward as ```None``` since the emotion and the rewards are always one-step delayed to the utterance and the audio in returned tuples.
 
-####  Important members
+##  Important members
 
 - **self.partition** str: 
 Dataset partition.
