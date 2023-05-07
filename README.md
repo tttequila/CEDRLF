@@ -81,7 +81,7 @@ _, _, _, _, _, _ = env.step(action = action)   # seeing return following
 ```
 Return a six-element-tuple of following contents: 
 
-    **Return**: 
+    Return: 
         (   
             two-element-tuple: (utterance (feature) of next timestep, audio (feature) of next timestep),
             bool: flag to indicate whether current dialogue has been finished,
