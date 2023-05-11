@@ -42,6 +42,7 @@ class MELD(gym.Env):
         self.utt_lst = []
         self.utt_ptr = -1
         self.dia_flag = False
+        
                  
         # loading predefined features
         if predefined_feat:
@@ -132,10 +133,10 @@ class MELD(gym.Env):
             'audio_idx': spaces.Dict([(k, spaces.Discrete(len(v)))
                                       for k, v in self.dia_utt.items()]),
         })
-        self.action_space = spaces.Discrete(6)
+        self.action_space = spaces.Discrete(7)
         
-        print('Action Space:', self.action_space)
-        print('State Space:', self.observation_space)
+        # print('Action Space:', self.action_space)
+        # print('State Space:', self.observation_space)
                 
         # set up label embedding
         self.label_dict = {}
@@ -152,8 +153,9 @@ class MELD(gym.Env):
             w2v = KeyedVectors.load_word2vec_format(fname = w2v_path,
                                                     binary = True)
             for k in label_k_lst:
-                self.label_dict[k] = w2v[k]
+                self.label_dict[k] = np.tanh(w2v[k])
             del w2v
+
             print("with embedding dimension: 300")
         elif self.label_emb == 'glove':
             # load glove model
@@ -161,19 +163,19 @@ class MELD(gym.Env):
                 w2v_path = load('glove-twitter-50', True)
             glove = KeyedVectors.load_word2vec_format(fname = w2v_path)
             for k in label_k_lst:
-                self.label_dict[k] = glove[k]
+                self.label_dict[k] = np.tanh(glove[k])
             del glove
             print("with embedding dimension: 50")
         elif self.label_emb == 'NRC_VAD':
             # (Valence, Arousal, Domain)
             self.label_dict={
-                        'anger':np.array([.167, .865, .657]),
-                        'joy':np.array([.98, .824, .794]),
-                        'sadness':np.array([.052, .288, .164]),
-                        'surprise':np.array([.857, .857, .562]),
-                        'fear':np.array([.073, .84, .293]),
-                        'disgust':np.array([.052, .775, .317]),
-                        'neutral':np.array([.5, .5, .5])
+                        'anger':np.tanh(np.array([.167, .865, .657])),
+                        'joy':np.tanh(np.array([.98, .824, .794])),
+                        'sadness':np.tanh(np.array([.052, .288, .164])),
+                        'surprise':np.tanh(np.array([.857, .857, .562])),
+                        'fear':np.tanh(np.array([.073, .84, .293])),
+                        'disgust':np.tanh(np.array([.052, .775, .317])),
+                        'neutral':np.tanh(np.array([.5, .5, .5]))
                                                         }
             print("with embedding dimension: 5")
         else:
@@ -265,14 +267,15 @@ if __name__ == '__main__':
                 partition='dev',
                 label_emb='NRC_VAD',
                 predefined_feat=True)
-    
-    print(env_test.reset())
-    # print(env_test.labels['66'])
-    for _ in range(100):
-        state, flag, id_pair, emo, emo_emb, reward = env_test.step(np.random.random((1,3)))
-        # if flag == True:
-        #     print(state)
-        print(flag, id_pair)
-        if flag == True:
-            _, flag, id_pair, _, _, _ = env_test.reset()
-    env_test.close()
+    env_test.seed(0)
+    print(env_test.label_dict)
+    # print(env_test.reset())
+    # # print(env_test.labels['66'])
+    # for _ in range(100):
+    #     state, flag, id_pair, emo, emo_emb, reward = env_test.step(np.random.random((1,3)))
+    #     # if flag == True:
+    #     #     print(state)
+    #     print(flag, id_pair)
+    #     if flag == True:
+    #         _, flag, id_pair, _, _, _ = env_test.reset()
+    # env_test.close()
