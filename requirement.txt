@@ -1,6 +1,10 @@
 gym
 gensim
 scipy
-sklearn
+scikit-learn
 pandas=2.0.1
-nummpy==1.19.0
+nummpy==1.23.0
+tensorflow==2.9
+tensorlater
+matplotlib==3.7.1
+opencv-python
