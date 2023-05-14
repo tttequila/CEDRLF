@@ -24,7 +24,7 @@ Embdedding spaces are chosen from:
   - **glove**: Using conting based model [glove](https://radimrehurek.com/gensim/scripts/glove2word2vec.html) to convert emotion labels into corresponding language semantic space as continuouse values. In shape of (50, ).
   - **NRC_VAD**: Using extended version of [Valence-Arousal-Domain lexicon](https://saifmohammad.com/WebPages/nrc-vad.html) to convert emotion labels into manually predefined space as continuous values. In shape of (3, ), which are valence-dim, arousal-dim and domain-dim.
 
-❗ Especially, w2v and glove don't have finite scale while NRC_VAD are scaled within [0,1] 
+❗ Especially, to unify the scale of embedding value from different embedding spaces, all embeddings are taken **tanh** to be scaled within *[-1, 1]* 
  
 ## Dataset
 ![img](img/emotion_shift.jpeg)
@@ -120,7 +120,7 @@ Indicator of whether utterances in the current dialogue has be traversed.
 - **self.label/self.utt/self.audio** (dict):
 Dictionaries of data. Keys are dia_utt index pair. e.g. to call the label of 0-th dialogue and 0-th utterance, using ```env.label['0_0']```
 
-❗ Following members are mainly used to satisfiy the rule of customed environments for ```gym```. They don't literally mean the input and output of ```step()``` and ```reset()```
+❗ Following members are mainly used to satisfiy the rule of customed environments for ```gym```. **They don't literally mean the input and output of ```step()``` and ```reset()```**
 - **self.observation_space**:
     ```gym.spaces.Dict``` consisting of:
 
@@ -129,7 +129,7 @@ Dictionaries of data. Keys are dia_utt index pair. e.g. to call the label of 0-t
                 gym.spaces.Discrete with size of utterance number for each dialogue
             )
 - **self.action_space**:
-    ```gym.spaces.Discrete``` with size of shape of emotion embedding sapce (300, 50 or 3)
+    ```gym.spaces.Discrete(7)```
 
 # Toy Case
 ```python
@@ -142,6 +142,7 @@ env_test = gym.make('MELD-v0',
                partition='dev',
                label_emb='NRC_VAD',
                predefined_feat=True)
+env_test = env_test.unwrapped
 
 print(env_test.reset())
 
