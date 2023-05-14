@@ -121,7 +121,7 @@ class MELD(gym.Env):
         self.utt_total = np.sum([len(dia) for dia in self.labels])
         self.dia_utt = {}
         print('loading finished, totally loaded:\n dialogue: %i\nutterance: %i'%(self.dia_total, self.utt_total))
-        for dia_idx in range(self.dia_total):
+        for dia_idx in self.labels.keys():
             tmp = list(self.labels[str(dia_idx)].keys())
             tmp = [int(i) for i in tmp]
             tmp.sort()
@@ -244,6 +244,8 @@ class MELD(gym.Env):
             self.dia_id = dia_id
         else:
             self.dia_id = np.random.randint(self.dia_total)
+            while self.dia_id == 60:
+                self.dia_id = np.random.randint(self.dia_total)
             
         # update dialogue depended states
         self.dia_flag = False
@@ -251,8 +253,8 @@ class MELD(gym.Env):
         self.utt_id = self.utt_lst[self.utt_ptr]
 
 
-        utt = self.utt[str(self.dia_id)][str(self.utt_ptr)]
-        audio = self.audio[str(self.dia_id)][str(self.utt_ptr)]
+        utt = self.utt[str(self.dia_id)][str(self.utt_id)]
+        audio = self.audio[str(self.dia_id)][str(self.utt_id)]
 
         
         return ((utt, audio),
@@ -263,11 +265,11 @@ class MELD(gym.Env):
 if __name__ == '__main__':
     
     env_test = MELD(
-                dataset_path='C:/Users/TTTeq/Documents/CodeFolder/CP/Dataset/MELD.Features.Models/features',
-                partition='dev',
-                label_emb='NRC_VAD',
+                dataset_path='E:/Code/datasets/MELD.Features.Models/features',
+                partition='train',
+                label_emb='w2v',
                 predefined_feat=True)
-    env_test.seed(0)
+    # env_test.seed(0)
     print(env_test.label_dict)
     # print(env_test.reset())
     # # print(env_test.labels['66'])
