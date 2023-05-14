@@ -1,0 +1,4 @@
+{'anger': 1172, 'joy': 1454, 'sadness': 776, 'surprise': 1006, 'fear': 169, 'disgust': 234, 'neutral': 4361}
+{'anger': 19, 'joy': 102, 'sadness': 0, 'surprise': 17, 'fear': 28, 'disgust': 1, 'neutral': 3320}
+{'anger': 0.016, 'joy': 0.07, 'sadness': 0, 'surprise': 0.017, 'fear': 0.166, 'disgust': 0.004, 'neutral': 0.761}
+加权准确率=0.38

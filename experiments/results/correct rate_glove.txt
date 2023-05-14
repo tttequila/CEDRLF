@@ -1,0 +1,4 @@
+{'anger': 1200, 'joy': 1484, 'sadness': 709, 'surprise': 983, 'fear': 173, 'disgust': 231, 'neutral': 4564}
+{'anger': 12, 'joy': 626, 'sadness': 2, 'surprise': 302, 'fear': 44, 'disgust': 0, 'neutral': 43}
+{'anger': 0.01, 'joy': 0.422, 'sadness': 0.003, 'surprise': 0.307, 'fear': 0.254, 'disgust': 0, 'neutral': 0.009}
+情绪占比x准确率 的 加权准确率=0.110
